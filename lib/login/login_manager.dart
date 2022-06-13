@@ -1,7 +1,13 @@
+import 'package:flutter_popular/login/user_info_model.dart';
+
 class LoginManager {
-  static bool isLogin = false;
+  static UserInfoModel? userInfoModel;
+
+  static bool get isLogin {
+    return userInfoModel != null;
+  }
 
   static logout() {
-    isLogin = false;
+    userInfoModel = null;
   }
 }

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popular/login/login_manager.dart';
+import 'package:flutter_popular/login/user_info_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, required this.successCallback}) : super(key: key);
@@ -14,6 +17,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +32,18 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             TextButton(
               onPressed: () {
-                LoginManager.isLogin = true;
+                String jsonStr = '''
+    {
+    "userId": 5486,
+    "name": "崔志伟",
+    "avatarUrl": "https://img2.woyaogexing.com/2022/06/11/51c3e70810ca37c1!400x400.jpg"
+}
+    ''';
+
+                UserInfoModel model = UserInfoModel.fromJson(json.decode(jsonStr));
+                print(model.name);
+
+                LoginManager.userInfoModel = model;
                 context.router.pop();
                 widget.successCallback(true);
               },
